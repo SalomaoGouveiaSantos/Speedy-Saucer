@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=3 uid="uid://bbskaqerdybf7"]
+
+[ext_resource type="Script" path="res://level_1.gd" id="1_pgbar"]
+[ext_resource type="Texture2D" uid="uid://cvy5eoihi6jmr" path="res://purple.png" id="1_y3c48"]
+[ext_resource type="PackedScene" uid="uid://dj7r2blifm3vp" path="res://player.tscn" id="2_uybh8"]
+[ext_resource type="PackedScene" uid="uid://bu52lbfa635vy" path="res://maze.tscn" id="4_r6kki"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tkdr1"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_1hrej"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_oiwts"]
+font_size = 11
+
+[node name="Level_1" type="Node2D"]
+script = ExtResource("1_pgbar")
+
+[node name="Graphics" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Graphics"]
+layer = -10
+
+[node name="Background" type="TextureRect" parent="Graphics/CanvasLayer"]
+z_index = -100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_y3c48")
+stretch_mode = 1
+
+[node name="StartLabel" type="Label" parent="Graphics"]
+z_index = -25
+offset_left = 288.0
+offset_top = 240.0
+offset_right = 383.0
+offset_bottom = 285.0
+text = "START
+"
+label_settings = SubResource("LabelSettings_tkdr1")
+
+[node name="EndLabel" type="Label" parent="Graphics"]
+z_index = -25
+offset_left = 572.0
+offset_top = 115.0
+offset_right = 638.0
+offset_bottom = 160.0
+text = "END"
+label_settings = SubResource("LabelSettings_1hrej")
+
+[node name="Tutorial" type="Label" parent="Graphics"]
+z_index = -25
+offset_left = 95.0
+offset_top = 266.0
+offset_right = 255.0
+offset_bottom = 348.0
+text = "Rules
+- use the Arrow Keys or WASD
+- Go to the End
+- Don't leave the stage"
+label_settings = SubResource("LabelSettings_oiwts")
+
+[node name="Player" parent="." instance=ExtResource("2_uybh8")]
+position = Vector2(333, 310)
+
+[node name="Maze" parent="." instance=ExtResource("4_r6kki")]
+z_index = -50
+position = Vector2(332, 226)
+
+[connection signal="body_exited" from="Maze" to="." method="_on_maze_body_exited"]
